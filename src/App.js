@@ -45,18 +45,45 @@ const styleCard = {
     backgroundColor: "#f0f0f0"
 }
 
+//This is the array of objects of restaurant list
+const resList = [{
+    type: "restaurant",
+    data: {
+        id: "1",
+        name: "McDonalds",
+        cusines: ["Burgers", "French Fries", "Cool-Drinks"],
+        rating: "4.3"
+    }
+},
+{
+    type: "restaurant",
+    data: {
+        id: "2",
+        name: "Idli Hotel",
+        cusines: ["Idli", "Vada", "Poori"],
+        rating: "4.2"
+    }
+}];
+
 const RestauranCard = (props) => {
 
-    //const { resname, cusine } = props;
+    const { resData } = props;
+
+    //We will destructure the data object
+    const { 
+        name, 
+        cusines, 
+        rating, 
+    } = resData?.data;
 
     return(
         <div className='res-card' style={styleCard}>
             <img className='res-logo'
                 src='https://b.zmtcdn.com/data/dish_photos/1a0/ffe7eb06f808b1da06032cccda8551a0.jpg' alt='public/logo192.png'>
             </img>
-            <h3>{props.resName}</h3>
-            <h4>{props.cusine}</h4>
-            <h4>{props.rating}</h4>
+            <h3>{name}</h3>
+            <h4>{cusines.join(",")}</h4>
+            <h4>{rating}</h4>
         </div>
     )
 }
@@ -70,9 +97,23 @@ const Body = () => {
                 
             <div className='res-container'>
                 {/* Restro Card and we will make a seperate component for that since it will be reused many times */}
-                <RestauranCard resName = 'Muthalli Veg' cusine = 'North Indian and South Indian Veg' rating = '4.4 star'/>
-                <RestauranCard resName = 'KFC' cusine = 'Burger' rating = '4.3 star'/>
-
+                {
+                    /*
+                    This is not a good way we need to loop over the array of restaurant list 
+                    
+                    <RestauranCard resData = { resList[0] }/>
+                    <RestauranCard resData = { resList[1] }/>
+                    
+                    But we wont use the for loop but use the functional programming concepts of map function 
+                    Map function interates over all the elements of the loop
+                    */
+                    
+                    resList.map((restaurant) => (
+                        <RestauranCard key = {restaurant.data.id} resData = {restaurant}/>
+                    ))
+                }
+                
+                
             </div>
         </div>
     )
