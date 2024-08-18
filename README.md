@@ -68,3 +68,24 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+//React Element Food Ordering App
+/*
+Header
+- Logo
+- Navigation
+Body
+- search
+- card container
+    - different restro cards
+        img
+        name
+        rating
+        cusines
+        price
+Footer
+- copyright
+- social media links
+*/ 
