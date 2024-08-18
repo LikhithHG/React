@@ -89,3 +89,8 @@ Footer
 - copyright
 - social media links
 */ 
+
+#React Hooks
+- Normal javascript utility functions
+-two important functions 1. useState() - you need to import from react like a named import
+                         2. useEffect()      
