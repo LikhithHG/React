@@ -1,6 +1,6 @@
 import RestauranCard from './RestauranCard';
 import resList from '../utils/mockData';
-import { useState } from 'react'; //This is a type of hook and its a named import
+import { useState, useEffect } from 'react'; //This is a type of hook and its a named import
 
 const Body = () => {
 
@@ -15,6 +15,28 @@ const Body = () => {
     // const [listOfRestaurants, setListofRestaurant] = arr;
     const [listOfRestaurants, setListofRestaurant] = useState(resList); 
 
+    useEffect(() => {
+        //This is the first argument the useEffect callback function
+        //The second parameter is the dependency array
+        //console.log("use effect called");
+        //This will be work once the component is rendered
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        //fetch function given by the browser and fetch data from the API
+        const data = await fetch(); //Fetch always return a promise so to resolve it we need to use async and await
+
+        //once we get data we need to convert it to JSON
+        const json = await data.json();
+        
+        //Print the JSON
+        console.log(json);
+
+        //use the hooks to render
+        //setListofRestaurant(json.___)
+
+    }
 
     //This is Normal JS Variable
     //let listOfRestaurants = {};
