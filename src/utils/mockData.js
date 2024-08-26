@@ -6,7 +6,8 @@ const resList = [{
             id: "1",
             name: "McDonalds",
             cusines: ["Burgers", "French Fries", "Cool-Drinks"],
-            rating: "4.3"
+            rating: "4.3",
+            cloudinaryImageId: "3a26aa967dc44e104627a4b8a8117454"
         }
     },
     {

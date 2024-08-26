@@ -13,6 +13,7 @@ const Body = () => {
     // Same as the below using array destructuring
     //const arr = useState(resList);
     // const [listOfRestaurants, setListofRestaurant] = arr;
+
     const [listOfRestaurants, setListofRestaurant] = useState(resList); 
 
     useEffect(() => {
@@ -25,25 +26,58 @@ const Body = () => {
 
     const fetchData = async () => {
         //fetch function given by the browser and fetch data from the API
-        const data = await fetch(); //Fetch always return a promise so to resolve it we need to use async and await
+        //Fetch always return a promise so to resolve it we need to use async and await
+        const data = await fetch(
+            "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        ); 
 
         //once we get data we need to convert it to JSON
         const json = await data.json();
         
         //Print the JSON
-        console.log(json);
+        //console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
 
-        //use the hooks to render
-        //setListofRestaurant(json.___)
+        //Optional Chaining
+        //json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+
+        //use the hooks to render data from API
+        //setListofRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 
     }
 
     //This is Normal JS Variable
     //let listOfRestaurants = {};
 
+    const [searchText, setSearchText] = useState("");
+
     return(
         <div className='body'>
             <div className='filter'>
+                <div className='search'>
+                    <input type="text" 
+                        className="search-box" 
+                        value = {searchText} 
+                        onChange={(e) => {setSearchText(e.target.value) }}
+                    />
+                    <button className="search-btn"
+                        onClick={() => {
+                            //Filter the restaurant cards and update the UI.
+                            //Search text from Input box I need to take the value from input box and bind to local state variable
+                            console.log(searchText);
+
+                            //Use filter method from javascript to filter data from API
+                        
+                            const filteredRestaurant = listOfRestaurants.filter(
+                                (res) => res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                            );
+
+                            setListofRestaurant(filteredRestaurant);
+                        }}
+                    >
+                    Search
+                    </button>
+
+                </div>
                 <button 
                     className='filter-btn' //OnClick takes the callback function
                     onClick={() => {
