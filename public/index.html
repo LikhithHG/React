@@ -28,7 +28,21 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/index.js"></script>
+
+    <!-- 
+      React files in the "src/" folder contain modern JavaScript (ES6+ and JSX) 
+      that browsers cannot directly understand. These files are processed by 
+      a build tool (like Webpack) during development or production.
+
+      The React development server automatically bundles and serves these files 
+      as plain JavaScript (e.g., "bundle.js") that the browser can execute.
+
+      Do not link "src/index.js" directly in the HTML. Use "npm start" to let 
+      the development server handle this process.
+
+      <script type="module" src="./src/index.js"></script>
+    -->
+    <script type="module" src="/static/js/bundle.js"></script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
