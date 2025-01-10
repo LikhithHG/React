@@ -1,4 +1,5 @@
 //import {RES_LOGO_URL} from "../utils/constants.js"
+//Named Import
 import { CDN_URL } from "../utils/constants.js";
 
 //Inline styles - not preferred way

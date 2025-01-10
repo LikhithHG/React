@@ -1,20 +1,26 @@
 import RestauranCard from './RestauranCard';
-import resList from '../utils/mockData';
+//When using the static data this below import statement is needed
+//import resList from '../utils/mockData';
 import { useState, useEffect } from 'react'; //This is a type of hook and its a named import
+import Shimmer from './Shimmer';
 
 const Body = () => {
 
     //State Variable - one of the powerful variable
     //For this we use a React Hooks and it is a normal javascript function given by the react
     //State variable by react
-    //Whatever we pass will be the default value to the variable(1st parameter)
+    //Whatever we pass there will be the default value to the variable(1st parameter)
     //2nd Parameter is the function to update the first variable 
 
     // Same as the below using array destructuring
     //const arr = useState(resList);
     // const [listOfRestaurants, setListofRestaurant] = arr;
 
-    const [listOfRestaurants, setListofRestaurant] = useState(resList); 
+    const [listOfRestaurants, setListofRestaurant] = useState([]); 
+
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
         //This is the first argument the useEffect callback function
@@ -28,29 +34,36 @@ const Body = () => {
         //fetch function given by the browser and fetch data from the API
         //Fetch always return a promise so to resolve it we need to use async and await
         const data = await fetch(
-            "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         ); 
 
-        //once we get data we need to convert it to JSON
+        //once we get data we need to convert it to JSON and JSON is a promise again and so we use await
         const json = await data.json();
         
         //Print the JSON
+        //console.log(json);
         //console.log(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
 
         //Optional Chaining
         //json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
 
         //use the hooks to render data from API
-        //setListofRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        setListofRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 
+        //A copy of the restaurants
+        setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
 
-    //This is Normal JS Variable
-    //let listOfRestaurants = {};
+    //Shimmer UI
+    
+    // if (listOfRestaurants.length === 0) {
+    //     return <Shimmer/>;
+    // }
+  
 
-    const [searchText, setSearchText] = useState("");
-
-    return(
+    return listOfRestaurants.length === 0 ? (
+        <Shimmer />
+    ) : (
         <div className='body'>
             <div className='filter'>
                 <div className='search'>
@@ -67,8 +80,8 @@ const Body = () => {
 
                             //Use filter method from javascript to filter data from API
                         
-                            const filteredRestaurant = listOfRestaurants.filter(
-                                (res) => res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                            const filteredRestaurant = filteredRestaurants.filter(
+                                (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
                             );
 
                             setListofRestaurant(filteredRestaurant);
@@ -83,15 +96,15 @@ const Body = () => {
                     onClick={() => {
                             //Filter logic here
                             //We use the hooks
-                            const filteredList = resList.filter(
-                                (item) => item.data.rating >= 4
+                            const filteredList = filteredRestaurants.filter(
+                                (item) => item.info.avgRating >= 4.5
                             );
                             setListofRestaurant(filteredList);
-                            console.log(filteredList);
+                            //console.log(filteredList);
                         }
                     }
                 >
-                    Top Rated Restaurant
+                    Top Restaurants
                 </button>
             </div>
                 
@@ -109,7 +122,7 @@ const Body = () => {
                     */
                     
                     listOfRestaurants.map((restaurant) => (
-                        <RestauranCard key = {restaurant.data.id} resData = {restaurant}/>
+                        <RestauranCard key = {restaurant.info.id} resData = {restaurant}/>
                     ))
                 }
                 

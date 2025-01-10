@@ -1,43 +1,46 @@
 //This is the array of objects of restaurant list
 const resList = [{
         type: "restaurant",
-        data: 
+        info: 
         {
             id: "1",
             name: "McDonalds",
-            cusines: ["Burgers", "French Fries", "Cool-Drinks"],
+            cuisines: ["Burgers", "French Fries", "Cool-Drinks"],
             rating: "4.3",
-            cloudinaryImageId: "3a26aa967dc44e104627a4b8a8117454"
+            cloudinaryImageId: "yz7ffjxfwmgwgukp4w9w"
         }
     },
     {
         type: "restaurant",
-        data: 
+        info: 
         {
             id: "2",
             name: "Idli Hotel",
-            cusines: ["Idli", "Vada", "Poori"],
-            rating: "3.2"
+            cuisines: ["Idli", "Vada", "Poori"],
+            rating: "3.2",
+            cloudinaryImageId: "yz7ffjxfwmgwgukp4w9w"
         }
     },
     {
         type: "restaurant",
-        data: 
+        info: 
         {
             id: "3",
             name: "Muthalli Veg",
-            cusines: ["Idli", "Vada", "Poori", "South Indian"],
-            rating: "4.2"
+            cuisines: ["Idli", "Vada", "Poori", "South Indian"],
+            rating: "4.2",
+            cloudinaryImageId: "yz7ffjxfwmgwgukp4w9w"
         }
     },
     {
         type: "restaurant",
-        data: 
+        info: 
         {
             id: "4",
             name: "Bangarpet Chats",
-            cusines: ["Idli", "Vada", "Poori"],
-            rating: "3.9"
+            cuisines: ["Idli", "Vada", "Poori"],
+            rating: "3.9",
+            cloudinaryImageId: "yz7ffjxfwmgwgukp4w9w"
         }
     }
 ];
