@@ -3,6 +3,8 @@ import RestauranCard from './RestauranCard';
 //import resList from '../utils/mockData';
 import { useState, useEffect } from 'react'; //This is a type of hook and its a named import
 import Shimmer from './Shimmer';
+import { API } from '../utils/constants';
+import { Link } from "react-router-dom";
 
 const Body = () => {
 
@@ -34,7 +36,7 @@ const Body = () => {
         //fetch function given by the browser and fetch data from the API
         //Fetch always return a promise so to resolve it we need to use async and await
         const data = await fetch(
-            "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            API
         ); 
 
         //once we get data we need to convert it to JSON and JSON is a promise again and so we use await
@@ -97,7 +99,7 @@ const Body = () => {
                             //Filter logic here
                             //We use the hooks
                             const filteredList = filteredRestaurants.filter(
-                                (item) => item.info.avgRating >= 4.5
+                                (item) => item.info.avgRating >= 4.3
                             );
                             setListofRestaurant(filteredList);
                             //console.log(filteredList);
@@ -122,7 +124,12 @@ const Body = () => {
                     */
                     
                     listOfRestaurants.map((restaurant) => (
-                        <RestauranCard key = {restaurant.info.id} resData = {restaurant}/>
+                        <Link 
+                            key = {restaurant.info.id}
+                            to = {"/restaurants/" + restaurant.info.id}
+                        >
+                            <RestauranCard  resData = {restaurant}/>
+                        </Link>
                     ))
                 }
                 
