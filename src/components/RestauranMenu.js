@@ -11,18 +11,22 @@ const RestauranMenu = () => {
     //console.log(resId);
 
     useEffect(() => {
+        const fetchMenu = async () => {
+            try{
+                const data = await fetch(MENU_API + resId);
+                const json = await data.json();
+                //To check if data is valid
+                //console.log(json);
+                setResInfo(json.data);
+            }
+            catch(error){
+                console.error("Error fetching menu data:", error);
+            }
+        }
         fetchMenu();
-    }, []);
+    }, [resId]);
 
-    const fetchMenu = async () => {
-        const data = await fetch(
-            MENU_API + resId
-        );
-        const json = await data.json();
-        //To check if data is valid
-        console.log(json);
-        setResInfo(json.data);
-    }
+    
 
     if(resInfo === null)
         return <Shimmer />
