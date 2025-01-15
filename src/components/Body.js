@@ -35,9 +35,7 @@ const Body = () => {
     const fetchData = async () => {
         //fetch function given by the browser and fetch data from the API
         //Fetch always return a promise so to resolve it we need to use async and await
-        const data = await fetch(
-            API
-        ); 
+        const data = await fetch(API); 
 
         //once we get data we need to convert it to JSON and JSON is a promise again and so we use await
         const json = await data.json();

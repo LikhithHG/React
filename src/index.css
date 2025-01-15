@@ -80,3 +80,8 @@ code {
   display: flex;
   flex-wrap: wrap;
 }
+
+.user-card {
+  padding: auto;
+  border: 1px solid black;
+}

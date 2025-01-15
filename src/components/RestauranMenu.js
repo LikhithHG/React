@@ -7,7 +7,7 @@ const RestauranMenu = () => {
 
     const [resInfo, setResInfo] = useState(null);
 
-    const {resId} = useParams();
+    const {resId} = useParams(); //This will be taken from the path variable where createBrowserRoute was defined and it will be accessed from there
     //console.log(resId);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const RestauranMenu = () => {
                 setResInfo(json.data);
             }
             catch(error){
-                console.error("Error fetching menu data:", error);
+                console.error("Error fetching menu data: ", error);
             }
         }
         fetchMenu();
@@ -31,6 +31,7 @@ const RestauranMenu = () => {
     if(resInfo === null)
         return <Shimmer />
 
+    //The below info depends on the API so whenever API change please work on this again
     const { name, cuisines,  costForTwoMessage} = resInfo?.cards[2]?.card?.card?.info;
     
     const { itemCards } =  resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;

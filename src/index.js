@@ -17,7 +17,7 @@ const App = () => {
     <div className='App'>
       <Header />
       {/** Header to be intact but the other pages should be below the header */}
-      <Outlet /> {/** This is inside the App component and when the createBrowserRouter will be in App this outlet will be updating to the respective children based on the path */}
+      <Outlet /> {/** This is inside the App component and when the createBrowserRouter will be in App this outlet will be updating to the respective children of the element app based on the path */}
     </div>
   );
 };
@@ -41,8 +41,8 @@ const appRouter = createBrowserRouter([
       },
       {
         //Works only if the resId is in API and it does not work for random things
-        path: '/restaurants/:resId', //the path after : is dynamic
-        element: <RestauranMenu />,
+        path: '/restaurants/:resId', //the path after : is dynamic and resId will be taken dynamically based on the user input
+        element: <RestauranMenu />, //This resId can be accessed by useParams hook in the RestauranMenu components
       },
     ],
     errorElement: <Error />,
@@ -53,7 +53,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={ appRouter } />
+    <RouterProvider router = { appRouter } />
   </React.StrictMode>
 );
 
