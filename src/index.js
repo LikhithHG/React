@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 //This was earlier needed when I was having a seperate App.js file which created confusion
@@ -11,6 +11,11 @@ import Error from './components/Error';
 import RestauranMenu from './components/RestauranMenu';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+
+//This line is used to import the componets that need seperate bundling
+//It uses lazy and this takes a call back function import()
+//This import is different thing from normal imports
+const Grocery = lazy(() => import("./components/Grocery"));
 
 const App = () => {
   return (
@@ -38,6 +43,13 @@ const appRouter = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact />,
+      },
+      {
+        //For this we will be using react dynamic bundling/code spliting/lazy loading It uses 'lazy' and 'Suspense' from react
+        //We need to use Suspense component to avoid the error because it takes some time to load the grocery page
+        //During the time react wont have data and it will throw error and hence we will use Suspense
+        path: '/grocery',
+        element: <Suspense fallback = {/** any JSX code */ <h1>Loading...!</h1>}><Grocery /></Suspense>,
       },
       {
         //Works only if the resId is in API and it does not work for random things

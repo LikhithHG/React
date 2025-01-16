@@ -1,15 +1,22 @@
-import { useState, useEffect } from "react"; 
+//import { useState, useEffect } from "react"; 
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
-import { MENU_API } from "../utils/constants";
+//import { MENU_API } from "../utils/constants";
+import useRestauranMenu from "../utils/useRestauranMenu";
 
 const RestauranMenu = () => {
 
-    const [resInfo, setResInfo] = useState(null);
+    //Creating Custom hook from RestauranMenu.js to increase modularity and Single Responsibility Principle
+    //Have created a custom Hook useRestauranMenu.js in utils that fetches data for this display
+    //const [resInfo, setResInfo] = useState(null);
 
     const {resId} = useParams(); //This will be taken from the path variable where createBrowserRoute was defined and it will be accessed from there
     //console.log(resId);
 
+    //We have to now call this from the custom Hook
+    const resInfo = useRestauranMenu(resId);
+
+    /* This has now gone inside the custom hook
     useEffect(() => {
         const fetchMenu = async () => {
             try{
@@ -26,7 +33,7 @@ const RestauranMenu = () => {
         fetchMenu();
     }, [resId]);
 
-    
+    */
 
     if(resInfo === null)
         return <Shimmer />

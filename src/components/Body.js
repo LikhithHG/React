@@ -3,8 +3,9 @@ import RestauranCard from './RestauranCard';
 //import resList from '../utils/mockData';
 import { useState, useEffect } from 'react'; //This is a type of hook and its a named import
 import Shimmer from './Shimmer';
-import { API } from '../utils/constants';
 import { Link } from "react-router-dom";
+import useRestaurant from '../utils/useRestaurant';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Body = () => {
 
@@ -17,13 +18,22 @@ const Body = () => {
     // Same as the below using array destructuring
     //const arr = useState(resList);
     // const [listOfRestaurants, setListofRestaurant] = arr;
+    //const [listOfRestaurants, setListofRestaurant] = useState([]); 
 
-    const [listOfRestaurants, setListofRestaurant] = useState([]); 
+    // Use the custom hook to fetch restaurant data
+    const restaurants = useRestaurant();
 
+    //Filtered Restaurants based on the condition
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
+    // Local states for search functionality and filtered results
     const [searchText, setSearchText] = useState("");
 
+    useEffect(() => {
+        setFilteredRestaurants(restaurants); // Set the default list for filtered restaurants
+    }, [restaurants]);
+
+    /* Now implemented in custom hook
     useEffect(() => {
         //This is the first argument the useEffect callback function
         //The second parameter is the dependency array
@@ -53,15 +63,27 @@ const Body = () => {
         //A copy of the restaurants
         setFilteredRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     }
+    */
 
     //Shimmer UI
     
     // if (listOfRestaurants.length === 0) {
     //     return <Shimmer/>;
     // }
+
+    const onlineStatus = useOnlineStatus();
+
+    if(onlineStatus === false)
+    {
+        return (
+            <h1>
+                No internet connection. Check out the connection!
+            </h1>
+        );
+    }
   
 
-    return listOfRestaurants.length === 0 ? (
+    return filteredRestaurants.length === 0 ? (
         <Shimmer />
     ) : (
         <div className='body'>
@@ -76,15 +98,15 @@ const Body = () => {
                         onClick={() => {
                             //Filter the restaurant cards and update the UI.
                             //Search text from Input box I need to take the value from input box and bind to local state variable
-                            console.log(searchText);
+                            //console.log(searchText);
 
                             //Use filter method from javascript to filter data from API
-                        
-                            const filteredRestaurant = filteredRestaurants.filter(
+                            //Always filter from original list of restaurants
+                            const filteredRestaurant = restaurants.filter(
                                 (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())
                             );
 
-                            setListofRestaurant(filteredRestaurant);
+                            setFilteredRestaurants(filteredRestaurant);
                         }}
                     >
                     Search
@@ -96,10 +118,11 @@ const Body = () => {
                     onClick={() => {
                             //Filter logic here
                             //We use the hooks
-                            const filteredList = filteredRestaurants.filter(
+                            //Always filter from original list of restaurants
+                            const filteredList = restaurants.filter(
                                 (item) => item.info.avgRating >= 4.3
                             );
-                            setListofRestaurant(filteredList);
+                            setFilteredRestaurants(filteredList);
                             //console.log(filteredList);
                         }
                     }
@@ -121,7 +144,7 @@ const Body = () => {
                     Map function interates over all the elements of the loop
                     */
                     
-                    listOfRestaurants.map((restaurant) => (
+                    filteredRestaurants.map((restaurant) => (
                         <Link 
                             key = {restaurant.info.id}
                             to = {"/restaurants/" + restaurant.info.id}

@@ -1,6 +1,6 @@
 const User = ({name}) => {
 
-    //Convert this functional component to Class based component UserClass
+    //Convert this functional component to Class based component UserClass.js
     return (
         <div className="user-card">
             <h2>Name: {name}</h2>

@@ -75,7 +75,7 @@ class UserClass extends React.Component{
                 </button>
                 <button onClick={() => {
                     //Never Update state variables directly like the below
-                    //this.state.count = this.state.count + 1; this is wrong and create inconsistency
+                    //this.state.count = this.state.count - 1; this is wrong and create inconsistency
                     //Instead use setState method to update the state
                     this.setState({
                         count: this.state.count - 1,
