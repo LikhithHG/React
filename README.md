@@ -1,3 +1,5 @@
+**#I have deleted the local repo in my system and this is continued in Namaste React Repository**
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
