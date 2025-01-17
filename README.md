@@ -1,4 +1,4 @@
-**#I have deleted the local repo in my system and this is continued in Namaste React Repository**
+**I have deleted the local repo in my system and this is continued in NamasteReact Repository**
 
 # Getting Started with Create React App
 
